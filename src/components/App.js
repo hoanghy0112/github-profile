@@ -1,10 +1,12 @@
-import './App.css';
+import "./App.css"
+import SearchBox from "components/Search/SearchBox"
+import SearchResult from "components/Search/SearchResult"
 
 function App() {
-  return (
-    <>
-    </>
-  );
+   return <>
+      <SearchBox />
+      <SearchResult />
+   </>
 }
 
-export default App;
+export default App
