@@ -1,0 +1,42 @@
+
+.search-result 
+   color: var(--text-bold)
+   list-style-type: none
+   height: 0
+   position: relative
+
+   .wrapper 
+      position: fixed
+      top: 0
+      left: 0
+      width: 100vw
+      height: 100vh
+      background-color: transparent
+      z-index: 1
+
+   .closed 
+      display: none 
+   
+   .ul-closed 
+      height: 0
+
+   ul 
+      list-style-type: none
+      border-radius: 15px
+      overflow: hidden
+      position: absolute
+      width: 100%
+      z-index: 2
+      box-shadow: 0 0 30px -5px var(--shadow)
+
+      li 
+         background-color: var(--search-result)
+         padding-left: 30px
+         display: flex
+         align-items: center
+         transition: 0.2s ease-out
+         height: 50px
+
+         &:hover
+            background-color: var(--card-color-hover)
+            cursor: pointer

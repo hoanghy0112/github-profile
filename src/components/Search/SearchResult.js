@@ -1,22 +1,45 @@
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 
-import { usersSelector } from 'features/search/searchSlice'
+import {
+   usersSelector,
+   searchResultBoxSelector,
+} from 'features/search/searchSlice'
+import { toggleSearchResultBox, toggleSearchResultBoxOff } from 'features/search/searchSlice'
 import { fetchUserDetail } from 'features/user/userSlice'
 
+import './SearchResult.sass'
+
 export default React.memo(function () {
-   const usernames = useSelector(usersSelector)
+   const openState = useSelector(searchResultBoxSelector)
+
+   const users = useSelector(usersSelector)
    const dispatch = useDispatch()
 
-   const handleLoadUserProfile = username =>  () => {
+   const handleLoadUserProfile = (username) => () => {
+      dispatch(toggleSearchResultBoxOff())
       dispatch(fetchUserDetail(username))
    }
 
+   const handleToggleSelect = (event) => {
+      dispatch(toggleSearchResultBox())
+   }
+   console.log('re-render');
+
    return (
-      <ul className="search-result">
-         {usernames.map((username) => (
-            <li onClick={handleLoadUserProfile(username)} key={username}>{username}</li>
-         ))}
-      </ul>
+      <div className="search-result">
+         <div
+            className={`wrapper ${openState ? '' : 'closed'}`}
+            onClick={handleToggleSelect}
+         ></div>
+         <ul key={openState} className={`${openState ? '' : 'ul-closed'}`}>
+            {/* some thing inside ul */}
+            {users.map((user) => (
+               <li onClick={handleLoadUserProfile(user.login)} key={user.id}>
+                  {user.login}
+               </li>
+            ))}
+         </ul>
+      </div>
    )
 })

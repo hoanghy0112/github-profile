@@ -1,0 +1,3 @@
+
+- Catching error doesn't work
+--> write feature to render nothing had been found if no user is returned

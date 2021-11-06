@@ -1,0 +1,46 @@
+
+.search-box 
+   background-color: var(--card-color)
+   border-radius: 15px
+   padding: 10px 
+   height: 60px
+
+   display: flex
+   justify-content: space-between
+   gap: 15px
+
+   position: relative
+   z-index: 2
+
+   box-shadow: 0 0 30px -10px var(--shadow)
+
+   input 
+      width: 100%
+      background-color: transparent
+      border: 0
+      outline: none
+      color: white
+      font-size: 18px
+      padding-left: 20px
+
+      @media (max-width: 425px) 
+         font-size: 14px
+
+   button 
+      padding: 10px 25px
+      background-color: var(--primary-color)
+
+      border: 0
+      border-radius: 10px
+      letter-spacing: 2px
+      color: white
+      font-size: 16px
+
+      cursor: pointer
+
+      @media (max-width: 425px) 
+         padding: 10px 15px
+         font-size: 14px
+   
+   @media (max-width: 425px) 
+      height: 60px

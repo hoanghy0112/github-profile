@@ -1,18 +1,25 @@
 import React from "react"
 import { useDispatch } from "react-redux"
 
-import { fetchUser } from "features/search/searchSlice"
+import { fetchUser, toggleSearchResultBoxOn } from "features/search/searchSlice"
+import './SearchBox.sass'
 
-export default React.memo(function () {
+const SearchBox = React.memo(function () {
    const [searchValue, setSearchValue] = React.useState("")
    const dispatch = useDispatch()
 
+   React.useEffect(() => {
+      dispatch(fetchUser(searchValue))
+   }, [])
+
    const handleSearch = () => {
       dispatch(fetchUser(searchValue))
+      dispatch(toggleSearchResultBoxOn())
    }
 
    const handleChange = (event) => {
       setSearchValue(event.target.value)
+      dispatch(toggleSearchResultBoxOn())
    }
 
    return (
@@ -21,8 +28,9 @@ export default React.memo(function () {
             value={searchValue}
             onChange={handleChange}
             onKeyPress={(event) => {
-               if (event.code === 'Event') handleSearch(searchValue)
+               if (event.code === 'Enter') handleSearch(searchValue)
             }}
+            onFocus={() => dispatch(toggleSearchResultBoxOn())}
             type="text"
             placeholder="Search Github username..."
          />
@@ -32,3 +40,5 @@ export default React.memo(function () {
       </div>
    )
 })
+
+export default SearchBox

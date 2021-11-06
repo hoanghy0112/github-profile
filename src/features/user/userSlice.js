@@ -19,11 +19,10 @@ const userSlice = createSlice({
             ...state,
             status: 'finished',
             username: action.payload.login,
-            id: action.payload.id,
             avatar: action.payload.avatar_url,
-            name: action.payload.name,
-            location: action.payload.location,
             repos: action.payload.public_repos,
+            github: action.payload.html_url,
+            ...action.payload,
          }
          return newState
       }

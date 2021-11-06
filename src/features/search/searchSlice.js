@@ -1,22 +1,35 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
-import { fetchUser as fetchUserAPI } from "api/fetchUser"
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
+import { fetchUser as fetchUserAPI } from 'api/fetchUser'
 
+export const fetchUser = createAsyncThunk(
+   'search/fetchUser',
+   async (keyword) => {
+      const response = await fetchUserAPI(keyword)
 
-export const fetchUser = createAsyncThunk("search/fetchUser", async () => {
-   const response = await fetchUserAPI("hoanghy0112")
-   return response
-})
+      return response
+   },
+)
 
 const searchSlice = createSlice({
-   name: "search",
+   name: 'search',
    initialState: {
       error: null,
-      keyword: "",
+      keyword: '',
+      searchResultBox: false,
       result: [],
    },
    reducers: {
       search: (state, action) => {
          state.keyword = action.payload
+      },
+      toggleSearchResultBox: (state) => {
+         state.searchResultBox = !state.searchResultBox
+      },
+      toggleSearchResultBoxOn: (state) => {
+         state.searchResultBox = true
+      },
+      toggleSearchResultBoxOff: (state) => {
+         state.searchResultBox = false
       },
    },
    extraReducers: {
@@ -25,14 +38,20 @@ const searchSlice = createSlice({
          state.result = action.payload
       },
       [fetchUser.rejected]: (state, action) => {
-         state.error = action.paylaod
+         state.error = action.payload
          state.result = null
       },
    },
 })
 
-export const { search } = searchSlice.actions
+export const {
+   search,
+   toggleSearchResultBox,
+   toggleSearchResultBoxOn,
+   toggleSearchResultBoxOff,
+} = searchSlice.actions
 
-export const usersSelector = state => state.search.result.map(user => user.username)
+export const usersSelector = (state) => state.search.result
+export const searchResultBoxSelector = (state) => state.search.searchResultBox
 
 export default searchSlice.reducer
