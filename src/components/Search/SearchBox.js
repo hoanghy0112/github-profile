@@ -1,5 +1,5 @@
 import React from "react"
-import { useSelector, useDispatch } from "react-redux"
+import { useDispatch } from "react-redux"
 
 import { fetchUser } from "features/search/searchSlice"
 
@@ -7,7 +7,7 @@ export default React.memo(function () {
    const [searchValue, setSearchValue] = React.useState("")
    const dispatch = useDispatch()
 
-   const handleSearch = (event) => {
+   const handleSearch = () => {
       dispatch(fetchUser(searchValue))
    }
 
@@ -20,6 +20,9 @@ export default React.memo(function () {
          <input
             value={searchValue}
             onChange={handleChange}
+            onKeyPress={(event) => {
+               if (event.code === 'Event') handleSearch(searchValue)
+            }}
             type="text"
             placeholder="Search Github username..."
          />

@@ -11,3 +11,8 @@ export const fetchUser = (username) => {
       }
    })
 }
+
+export const fetchUserDetail = async username => {
+   const data = await (await fetch('https://api.github.com/users/hoanghy0112')).json()
+   return data
+}

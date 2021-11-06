@@ -3,7 +3,7 @@ import { fetchUser as fetchUserAPI } from "api/fetchUser"
 
 
 export const fetchUser = createAsyncThunk("search/fetchUser", async () => {
-   const response = await fetchUserAPI("Placeholder for username")
+   const response = await fetchUserAPI("hoanghy0112")
    return response
 })
 

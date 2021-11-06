@@ -1,15 +1,21 @@
 import React from 'react'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 
 import { usersSelector } from 'features/search/searchSlice'
+import { fetchUserDetail } from 'features/user/userSlice'
 
 export default React.memo(function () {
    const usernames = useSelector(usersSelector)
+   const dispatch = useDispatch()
+
+   const handleLoadUserProfile = username =>  () => {
+      dispatch(fetchUserDetail(username))
+   }
 
    return (
       <ul className="search-result">
          {usernames.map((username) => (
-            <li key={username}>{username}</li>
+            <li onClick={handleLoadUserProfile(username)} key={username}>{username}</li>
          ))}
       </ul>
    )
