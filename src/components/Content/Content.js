@@ -12,6 +12,7 @@ import {
 import { faTwitter } from '@fortawesome/free-brands-svg-icons'
 
 import './Content.sass'
+import { isCompositeComponentWithType } from 'react-dom/test-utils'
 
 export default React.memo(function () {
    const {
@@ -110,10 +111,12 @@ export default React.memo(function () {
                         {
                            icon: <FontAwesomeIcon icon={faTwitter} />,
                            text: twitter,
+                           link: twitter && `https://twitter.com/${twitter}`
                         },
                         {
                            icon: <FontAwesomeIcon icon={faLink} />,
                            text: blog,
+                           link: blog,
                         },
                         {
                            icon: <FontAwesomeIcon icon={faBuilding} />,
@@ -129,9 +132,21 @@ export default React.memo(function () {
                            <div className="content__contact__icon">
                               {item.icon}
                            </div>
-                           <div className="content__contact__text">
-                              {item.text || 'Not available'}
-                           </div>
+                           { item.link ? 
+                              <a
+                                 href={item.link || ''}
+                                 target="_blank"
+                                 className="content__contact__text"
+                              >
+                                 {item.text || 'Not available'}
+                              </a> :
+                              <div
+                                 href={item.link || ''}
+                                 className="content__contact__text"
+                              >
+                                 {item.text || 'Not available'}
+                              </div> 
+                           }
                         </div>
                      ))}
                   </div>

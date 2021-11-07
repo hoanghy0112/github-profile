@@ -19,8 +19,6 @@ const SearchBox = React.memo(function () {
 
    const handleChange = (event) => {
       setSearchValue(event.target.value)
-      // handleSearch(event.target.value)
-      // dispatch(toggleSearchResultBoxOn())
    }
 
    return (
@@ -31,7 +29,6 @@ const SearchBox = React.memo(function () {
             onKeyPress={(event) => {
                if (event.code === 'Enter') handleSearch(event.target.value)
             }}
-            // onFocus={() => dispatch(toggleSearchResultBoxOn())}
             type="text"
             placeholder="Search Github username..."
          />
