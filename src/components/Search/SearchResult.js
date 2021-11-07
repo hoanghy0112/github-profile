@@ -24,7 +24,6 @@ export default React.memo(function () {
    const handleToggleSelect = (event) => {
       dispatch(toggleSearchResultBox())
    }
-   console.log('re-render');
 
    return (
       <div className="search-result">

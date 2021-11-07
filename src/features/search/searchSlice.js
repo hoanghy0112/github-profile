@@ -1,12 +1,16 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import { fetchUser as fetchUserAPI } from 'api/fetchUser'
 
+
+const setKeyword = keyword => localStorage.setItem('keyword', keyword)
+const getKeyword = () => localStorage.getItem('keyword') || ''
+
 export const fetchUser = createAsyncThunk(
    'search/fetchUser',
    async (keyword) => {
-      const response = await fetchUserAPI(keyword)
-
-      return response
+         const response = await fetchUserAPI(keyword)
+   
+         return response
    },
 )
 
@@ -14,7 +18,7 @@ const searchSlice = createSlice({
    name: 'search',
    initialState: {
       error: null,
-      keyword: '',
+      keyword: getKeyword(),
       searchResultBox: false,
       result: [],
    },
@@ -39,7 +43,6 @@ const searchSlice = createSlice({
       },
       [fetchUser.rejected]: (state, action) => {
          state.error = action.payload
-         state.result = null
       },
    },
 })

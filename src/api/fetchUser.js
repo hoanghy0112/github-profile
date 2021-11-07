@@ -13,9 +13,7 @@ export const fetchUser = (keyword) => {
                         `${encodeURIComponent(key)}=${encodeURIComponent( value,)}`,)
                      .join('&')}`,)
          ).json()
-         console.log('logging');
-         if (data?.message === 'Not found') {
-            console.log('fasdf');
+         if (data.message) {
             reject('Not found')
          } 
          else resolve(data.items)

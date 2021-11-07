@@ -12,6 +12,7 @@ const userSlice = createSlice({
    name: 'user',
    initialState: {
       status: 'none', //? none | finished
+      ...JSON.parse(localStorage.getItem('user-info'))
    },
    extraReducers: {
       [fetchUserDetail.fulfilled]: (state, action) => {
@@ -24,6 +25,7 @@ const userSlice = createSlice({
             github: action.payload.html_url,
             ...action.payload,
          }
+         localStorage.setItem('user-info', JSON.stringify(newState))
          return newState
       }
    }

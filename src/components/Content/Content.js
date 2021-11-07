@@ -73,7 +73,7 @@ export default React.memo(function () {
                            </p>
                         </div>
                      </div>
-                     <p className="text--bold">
+                     <p className="text--faded">
                         {bio || 'This profile has no bio'}
                      </p>
                   </div>
@@ -119,9 +119,9 @@ export default React.memo(function () {
                            icon: <FontAwesomeIcon icon={faBuilding} />,
                            text: company,
                         },
-                     ].map((item) => (
+                     ].map((item, index) => (
                         <div
-                           key={item.text}
+                           key={index}
                            className={`content__contact__item ${
                               item.text ? 'text--bold' : 'text--faded'
                            }`}

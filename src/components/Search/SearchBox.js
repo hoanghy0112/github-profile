@@ -4,22 +4,23 @@ import { useDispatch } from "react-redux"
 import { fetchUser, toggleSearchResultBoxOn } from "features/search/searchSlice"
 import './SearchBox.sass'
 
+import useLocalStorageState from "hooks/useLocalStorageState"
+
+
 const SearchBox = React.memo(function () {
-   const [searchValue, setSearchValue] = React.useState("")
+   const [searchValue, setSearchValue] = useLocalStorageState('search-keyword')
    const dispatch = useDispatch()
 
-   React.useEffect(() => {
-      dispatch(fetchUser(searchValue))
-   }, [])
-
-   const handleSearch = () => {
-      dispatch(fetchUser(searchValue))
+   const handleSearch = (keyword) => {
+      dispatch(fetchUser(keyword))
       dispatch(toggleSearchResultBoxOn())
    }
+   console.log('re-render');
 
    const handleChange = (event) => {
       setSearchValue(event.target.value)
-      dispatch(toggleSearchResultBoxOn())
+      // handleSearch(event.target.value)
+      // dispatch(toggleSearchResultBoxOn())
    }
 
    return (
@@ -28,13 +29,13 @@ const SearchBox = React.memo(function () {
             value={searchValue}
             onChange={handleChange}
             onKeyPress={(event) => {
-               if (event.code === 'Enter') handleSearch(searchValue)
+               if (event.code === 'Enter') handleSearch(event.target.value)
             }}
-            onFocus={() => dispatch(toggleSearchResultBoxOn())}
+            // onFocus={() => dispatch(toggleSearchResultBoxOn())}
             type="text"
             placeholder="Search Github username..."
          />
-         <button onClick={handleSearch} type="submit">
+         <button onClick={() => handleSearch(searchValue)} type="submit">
             Search
          </button>
       </div>
